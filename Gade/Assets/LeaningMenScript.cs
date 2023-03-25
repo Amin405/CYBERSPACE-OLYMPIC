@@ -1,22 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; // Import the SceneManagement namespace
 
 public class LeaningMenScript : MonoBehaviour
 {
     [SerializeField] private float throwForce = 10f; // throwing force applied to GameObject
-    [SerializeField] private float torque = 5f; // rotational force applied to  GameObject
-    private Vector2 startPosition; // starting position of mouse when clicking
-    private bool isDragging; // set to true when mouse is dragging the GameObject
-
-    private Rigidbody2D rb; 
-    private Collider2D col; 
+    [SerializeField] private float torque = 5f; // The rotational force applied to GameObject
+    private bool isDragging; // Set to true when  mouse is dragging GameObject
+    private Vector2 startPosition;
+    public Vector2 initialPosition { get; private set; } 
+    private Rigidbody2D rb;
+    private Collider2D col;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+        initialPosition = transform.position; 
     }
 
     void Update()
@@ -38,17 +38,6 @@ public class LeaningMenScript : MonoBehaviour
         }
     }
 
-    // Method to throw the GameObject with mouse movement
-    private void ThrowObject(Vector2 start, Vector2 end)
-    {
-        Vector2 direction = (end - start).normalized;
-        float distance = Vector2.Distance(start, end);
-
-        rb.AddForce(new Vector2(direction.x * throwForce * distance, direction.y * throwForce * distance));
-        rb.AddTorque(torque * distance, ForceMode2D.Impulse);
-    }
-
-    // Event handler to detect collision with the "MenTwo" GameObject
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("MenTwo"))
@@ -57,15 +46,31 @@ public class LeaningMenScript : MonoBehaviour
             rb.angularVelocity = 0f;
             rb.bodyType = RigidbodyType2D.Static;
             transform.position = collision.transform.position;
+            FindObjectOfType<WinCondition>().Win();
         }
     }
-
-    // When GameObject is outside of camera viewport becomes invisible
+    
     void OnBecameInvisible()
     {
         if (rb.bodyType != RigidbodyType2D.Static)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            gameObject.SetActive(false);
         }
+    }
+
+    public void Reset()
+    {
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+    }
+    
+    private void ThrowObject(Vector2 start, Vector2 end)
+    {
+        Vector2 direction = (end - start).normalized;
+        float distance = Vector2.Distance(start, end);
+
+        rb.AddForce(new Vector2(direction.x * throwForce * distance, direction.y * throwForce * distance));
+        rb.AddTorque(torque * distance, ForceMode2D.Impulse);
     }
 }
