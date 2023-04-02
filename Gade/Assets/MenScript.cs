@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MenScript : MonoBehaviour
 {
+    public CameraFollow cameraFollow;
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,4 +17,14 @@ public class MenScript : MonoBehaviour
     {
         
     }
+    
+    
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject == player)
+        {
+            cameraFollow.SetNewTarget(gameObject);
+        }
+    }
+
 }
