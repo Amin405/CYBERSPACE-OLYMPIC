@@ -8,6 +8,8 @@ TagManager:
   - checkPoint
   - Goal
   - Bottom
+  - LeaningMen
+  - LevelDisplay
   layers:
   - Default
   - TransparentFX
