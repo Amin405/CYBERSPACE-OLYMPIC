@@ -6,7 +6,7 @@ The game can be downloaded here  [here](https://github.com/Amin405/CYBERSPACE-OL
 
 <img  alt="image" src="https://github.com/Amin405/CYBERSPACE-OLYMPIC/blob/main/Screenshot/Screenshot%202023-05-10%20124050.png">
 
-Blue Thrower is a 2D pixel game developed in Unity. The game's objective is to throw a blue character using the left mouse button and aim to reach the target. However, other characters are stationed between the blue character and the target.
+Cyberspace Olympics is a 2D pixel game developed in Unity. The game's objective is to throw a blue character using the left mouse button and aim to reach the target. However, other characters are stationed between the blue character and the target.
 
 <img  alt="image" src="https://github.com/Amin405/CYBERSPACE-OLYMPIC/blob/main/Screenshot/Screenshot%202023-05-10%20124110.png">
 
